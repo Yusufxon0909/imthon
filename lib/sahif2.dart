@@ -25,6 +25,12 @@ class _Sahif2State extends State<Sahif2> {
 
   bool _isIconPressed = false;
 
+  // Yangi ochilgan listlar
+  List<String> cardNumbers = [];
+  List<String> expiryDates = [];
+  List<String> cvvCodes = [];
+  List<String> cardholderNames = [];
+
   @override
   void initState() {
     super.initState();
@@ -66,6 +72,16 @@ class _Sahif2State extends State<Sahif2> {
         _expiryController.text.isNotEmpty &&
         _cvvController.text.isNotEmpty &&
         _cardholderNameController.text.isNotEmpty;
+  }
+
+  // Kartani listga qo'shish funksiyasi
+  void _addCardToList() {
+    setState(() {
+      cardNumbers.add(_cardNumberController.text);
+      expiryDates.add(_expiryController.text);
+      cvvCodes.add(_cvvController.text);
+      cardholderNames.add(_cardholderNameController.text);
+    });
   }
 
   @override
@@ -119,28 +135,21 @@ class _Sahif2State extends State<Sahif2> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: Colors.grey), // Default border color
+                        borderSide: BorderSide(color: Colors.grey),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color:
-                                Colors.grey), // Border color when not focused
+                        borderSide: BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: Colors.blue), // Border color when focused
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                     ),
-                    keyboardType:
-                        TextInputType.number, // Only allow numerical input
+                    keyboardType: TextInputType.number,
                     inputFormatters: [
-                      FilteringTextInputFormatter
-                          .digitsOnly, // Allow only digits
-                      LengthLimitingTextInputFormatter(
-                          16), // Maximum length of 16 characters
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(16),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -166,29 +175,21 @@ class _Sahif2State extends State<Sahif2> {
                               fillColor: Colors.white,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors.grey), // Default border color
+                                borderSide: BorderSide(color: Colors.grey),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors
-                                        .grey), // Border color when not focused
+                                borderSide: BorderSide(color: Colors.grey),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors
-                                        .blue), // Border color when focused
+                                borderSide: BorderSide(color: Colors.blue),
                               ),
                             ),
-                            keyboardType: TextInputType
-                                .number, // Only allow numerical input
+                            keyboardType: TextInputType.number,
                             inputFormatters: [
-                              FilteringTextInputFormatter
-                                  .digitsOnly, // Allow only digits
-                              LengthLimitingTextInputFormatter(
-                                  4), // Maximum length of 4 characters
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(4),
                             ],
                           ),
                         ),
@@ -213,29 +214,21 @@ class _Sahif2State extends State<Sahif2> {
                               fillColor: Colors.white,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors.grey), // Default border color
+                                borderSide: BorderSide(color: Colors.grey),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors
-                                        .grey), // Border color when not focused
+                                borderSide: BorderSide(color: Colors.grey),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors
-                                        .blue), // Border color when focused
+                                borderSide: BorderSide(color: Colors.blue),
                               ),
                             ),
-                            keyboardType: TextInputType
-                                .number, // Only allow numerical input
+                            keyboardType: TextInputType.number,
                             inputFormatters: [
-                              FilteringTextInputFormatter
-                                  .digitsOnly, // Allow only digits
-                              LengthLimitingTextInputFormatter(
-                                  3), // Maximum length of 3 characters
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(3),
                             ],
                           ),
                         ),
@@ -254,19 +247,15 @@ class _Sahif2State extends State<Sahif2> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: Colors.grey), // Default border color
+                        borderSide: BorderSide(color: Colors.grey),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color:
-                                Colors.grey), // Border color when not focused
+                        borderSide: BorderSide(color: Colors.grey),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                            color: Colors.blue), // Border color when focused
+                        borderSide: BorderSide(color: Colors.blue),
                       ),
                     ),
                     keyboardType: TextInputType.text,
@@ -294,21 +283,22 @@ class _Sahif2State extends State<Sahif2> {
                   GestureDetector(
                     onTap: () {
                       if (_validateFields()) {
+                        _addCardToList(); // Karta ma'lumotlarini listga qo'shish
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => Sahif3(
-                              cvv: '123',
-                              cardnumber: '1234 5678 9876 5432',
-                              cardholder: 'John Doe',
-                              carddata: '12/24',
+                              cvvList: cvvCodes,
+                              cardNumberList: cardNumbers,
+                              cardHolderList: cardholderNames,
+                              expiryDateList: expiryDates,
                             ),
                           ),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text("iltimos malumotni to'ldiring"),
+                            content: Text("Iltimos, ma'lumotni to'ldiring"),
                             backgroundColor: Colors.red,
                           ),
                         );
