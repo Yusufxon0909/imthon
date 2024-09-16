@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imtihon/dd.dart'; // ShoeStore sahifasi bu yerda import qilingan
 
 void main() {
   runApp(MaterialApp(
@@ -15,60 +16,72 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  int _selectedIndex = 2;
+
+  // Sahifalar ro'yxati
+  final List<Widget> _pages = [
+    Scaffold(
+      body: Center(
+        child: Text('Page 5'), // 5-menyu: Bo'sh sahifa
+      ),
+    ), // 1-menyu: ShoeStore sahifasi
+    Scaffold(
+      body: Center(
+        child: Text('Page 5'), // 5-menyu: Bo'sh sahifa
+      ),
+    ), // 2-menyu: ShoeStore sahifasi
+    ShoeStore(), // 3-menyu: ShoeStore sahifasi
+    Scaffold(
+      body: Center(
+        child: Text('Page 4'), // 4-menyu: Bo'sh sahifa
+      ),
+    ),
+    Scaffold(
+      body: Center(
+        child: Text('Page 5'), // 5-menyu: Bo'sh sahifa
+      ),
+    ),
+  ];
+
+  // Bottom Navigation Bar elementlari
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(left: 35, right: 35),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [Icon(Icons.arrow_back), Icon(Icons.menu)],
+      body: _pages[_selectedIndex], // Tanlangan sahifa ko'rsatiladi
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.blue, // Tanlangan element rangi
+        unselectedItemColor: Colors.black, // Tanlanmagan element rangi
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.trending_up),
+            label: 'Home',
           ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 35, right: 35),
-        child: Column(
-          children: [
-            Text(
-              "Nike shoe store",
-              style: TextStyle(fontSize: 35, fontWeight: FontWeight.w500),
-            )
-          ],
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_outline_outlined),
+            label: 'Shop',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Notifications',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Profile',
+          ),
+        ],
       ),
     );
   }
 }
-
-
-
-
-
-//  Container(
-//         width: 150,
-//         height: 200,
-//         color: Colors.blue,
-//         child: Stack(
-//           clipBehavior:
-//               Clip.none, // Muhim: Stackdan tashqariga chiqishga ruxsat beradi
-//           children: [
-//             Positioned(
-//               top: -20, // Rasmni yuqoriga siljitadi
-//               left: -10, // Rasmni chapga siljitadi
-//               right: -10, // O'ngdan ham tashqariga chiqaradi
-//               child: Image.asset(
-//                 'rasm/k2.png',
-//                 fit: BoxFit.cover,
-//               ),
-//             ),
-//             Positioned(
-//               bottom: 10,
-//               left: 10,
-//               child:
-//                   Text('Blue\n\$220.00', style: TextStyle(color: Colors.white)),
-//             ),
-//           ],
-//         ),
-//       ) ,
